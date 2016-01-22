@@ -1,4 +1,4 @@
-# Lection 1
+# Lection 4
 
 ## Введение в БД
 
@@ -53,19 +53,37 @@
 **<u> Оператор ALTER: </u>**
 
 
-				ALTER TABLE [ ONLY ] name [ * ]
-        RENAME [ COLUMN ] column TO new_column --изменить название столбца
+Для различных модификаций таблиц используется команда ALTER TABLE.   Например:  
 
-    ALTER TABLE name
-        RENAME TO new_name -- переименовать таблицу
+-- добавление столбца  
+ALTER TABLE tblName ADD COLUMN colName colType;  
+ALTER TABLE tblName DROP COLUMN colName;   
 
+-- добавление именованного ограничения (UNIQUE, PRIMARY KEY)  
+ALTER TABLE tblName ADD CONSTRAIN cnstrName UNIQUE (colName);  
+ALTER TABLE tblName DROP CONSTRAIN cnstrName;  
 
-    ADD [ COLUMN ] column data_type [ COLLATE collation ] [ column_constraint [ ... ] ] --добавить столбец  
-    DROP [ COLUMN ] [ IF EXISTS ] column [ RESTRICT | CASCADE ] --удалить столбец  
-    ALTER [ COLUMN ] column [ SET DATA ] TYPE data_type [ COLLATE collation ] [ USING expression ] -- изменить тип данных столбца  
-    ALTER [ COLUMN ] column SET DEFAULT expression -- добавить DEFAULT-значение  
-    ALTER [ COLUMN ] column DROP DEFAULT --удалить DEFAULT-значение  
-    ALTER [ COLUMN ] column { SET | DROP } NOT NULL - добавить ограничение NOT NULL  
+-- изменение NOT NULL   
+ALTER TABLE tblName ALTER COLUMN colName SET NOT NULL;  
+ALTER TABLE tblName ALTER COLUMN colName DROP NOT NULL;  
+
+-- изменение DEFAULT  
+ALTER TABLE tblName ALTER COLUMN colName SET DEFAULT 42;  
+ALTER TABLE tblName ALTER COLUMN colName DROP DEFAULT;  
+
+-- изменение типа столбца  
+ALTER TABLE tblName ALTER COLUMN colName TYPE typeName;  
+
+-- переименование столбца  
+ALTER TABLE tblName RENAME COLUMN oldName TO newName;  
+
+-- переименование таблицы  
+ALTER TABLE tblName RENAME TO newTableName;  
+
+ЗАМЕТКА. Команды можно перечислять через запятую в рамках одного ALTER TABLE:  
+ALTER TABLE products  
+ADD COLUMN colName colType,  
+ALTER COLUMN someOtherCol SET DEFAULT 1;  
 
 
 **<u> Оператор DROP: </u>**
